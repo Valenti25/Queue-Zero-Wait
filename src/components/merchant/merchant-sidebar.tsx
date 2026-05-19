@@ -1,0 +1,61 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Calendar,
+  LayoutDashboard,
+  Link2,
+  Settings,
+  Sparkles,
+  Users,
+} from "lucide-react";
+import { Logo } from "@/components/layout/logo";
+import { useT } from "@/components/providers/locale-provider";
+import { cn } from "@/lib/utils";
+
+export function MerchantSidebar() {
+  const t = useT();
+  const pathname = usePathname();
+
+  const nav = [
+    { href: "/dashboard", label: t.merchant.overview, icon: LayoutDashboard },
+    { href: "/dashboard#insights", label: t.merchant.insightsNav, icon: Sparkles },
+    { href: "/dashboard#waitlist", label: t.merchant.waitlist, icon: Users },
+    { href: "/dashboard#bookings", label: t.merchant.bookings, icon: Calendar },
+    { href: "/dashboard#google", label: t.merchant.googleProfile, icon: Link2 },
+    { href: "/dashboard#settings", label: t.merchant.settings, icon: Settings },
+  ];
+
+  return (
+    <aside className="flex w-full flex-col md:w-64 md:shrink-0 md:border-r md:border-border/60 md:bg-card/50">
+      <div className="flex h-16 items-center border-b border-border/60 px-6">
+        <Logo />
+      </div>
+      <nav className="flex-1 space-y-1 p-4">
+        {nav.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              pathname === item.href
+                ? "bg-accent-cyan/10 text-accent-cyan"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            )}
+          >
+            <item.icon className="h-4 w-4" />
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+      <div className="border-t border-border/60 p-4">
+        <div className="rounded-xl border border-accent-violet/20 bg-accent-violet/5 p-4">
+          <p className="text-xs font-medium text-muted-foreground">{t.merchant.currentPlan}</p>
+          <p className="font-semibold">{t.merchant.growthTrial}</p>
+          <p className="mt-1 text-xs text-accent-cyan">{t.merchant.daysLeft}</p>
+        </div>
+      </div>
+    </aside>
+  );
+}

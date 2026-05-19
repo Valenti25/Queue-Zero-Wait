@@ -1,0 +1,10 @@
+import { readFileSync, writeFileSync } from "fs";
+const p = "src/components/customer/queue/position-queue-tracker.tsx";
+let s = readFileSync(p, "utf8");
+const badClose = "</" + "motion.div>";
+const goodClose = "</" + "motion.div>".replace("motion.", "");
+s = s.replace("    <motion.div className=\"space-y-6\">", "    <div className=\"space-y-6\">");
+s = s.replace("        </p>\n      " + badClose + "\n\n      <Card", "        </p>\n      </motion.div>\n\n      <Card".replace(badClose, goodClose));
+s = s.replace("      </p>\n    " + badClose + "\n  );\n}\n\nfunction StatCard", "      </p>\n    </motion.div>\n  );\n}\n\nfunction StatCard".replace(badClose, goodClose));
+s = s.replace("{value}</p>\n    " + badClose, "{value}</p>\n    </motion.div>".replace(badClose, goodClose));
+writeFileSync(p, s);
