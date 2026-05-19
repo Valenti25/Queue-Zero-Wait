@@ -66,7 +66,7 @@ export function MerchantValue() {
 
           <div className="mt-5 flex flex-wrap gap-2.5">
             <ButtonLink
-              href="/signup"
+              href="/start"
               className="h-8 rounded-full border-0 bg-gradient-brand px-3.5 text-xs text-primary-foreground hover:opacity-90 sm:px-4"
             >
               {m.cta}

@@ -16,6 +16,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
+    { href: "/home", label: "ร้านพาร์ทเนอร์" },
     { href: "/#features", label: t.nav.features },
     { href: "/#for-owners", label: t.nav.forOwners },
     { href: "/#how-it-works", label: t.nav.howItWorks },
@@ -44,13 +45,10 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex">
           <LanguageToggle />
           <ThemeToggle />
-          <ButtonLink href="/login" variant="ghost" size="sm">
-            {t.common.logIn}
-          </ButtonLink>
           <ButtonLink
-            href="/signup"
+            href="/start"
             size="sm"
-            className="bg-gradient-brand text-primary-foreground shadow-lg shadow-brand-500/25 hover:opacity-90 border-0"
+            className="border-0 bg-gradient-brand text-primary-foreground shadow-lg shadow-brand-500/25 hover:opacity-90"
           >
             {t.common.startTrial}
           </ButtonLink>
@@ -87,13 +85,10 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <div className="mt-3 flex flex-col gap-2 border-t border-border pt-4">
-            <ButtonLink href="/login" variant="outline">
-              {t.common.logIn}
-            </ButtonLink>
+          <div className="mt-3 border-t border-border pt-4">
             <ButtonLink
-              href="/signup"
-              className="bg-gradient-brand text-primary-foreground border-0"
+              href="/start"
+              className="w-full border-0 bg-gradient-brand text-primary-foreground"
             >
               {t.common.startTrial}
             </ButtonLink>

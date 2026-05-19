@@ -29,7 +29,7 @@ export function CTA() {
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <ButtonLink
-                href="/signup"
+                href="/start"
                 size="lg"
                 className="h-12 rounded-full bg-background text-foreground hover:bg-background/90 px-8 border-0"
               >

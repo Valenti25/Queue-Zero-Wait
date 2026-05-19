@@ -11,9 +11,9 @@ export default function DashboardLayout({
       <div className="hidden md:flex">
         <MerchantSidebar />
       </div>
-      <div className="flex flex-1 flex-col min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col">
         <DashboardHeader />
-        <main className="flex-1 overflow-auto p-4 md:p-8">{children}</main>
+        <main className="flex-1 p-4 md:p-8">{children}</main>
       </div>
     </div>
   );

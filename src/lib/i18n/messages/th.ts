@@ -597,6 +597,8 @@ export const th: Messages = {
     daysLeft: "เหลือ 12 วัน",
     currentPlan: "แพ็กปัจจุบัน",
     previewCustomer: "ดูมุมมองลูกค้า",
+    viewStorePage: "ดูหน้าร้าน",
+    customerHome: "หน้าหลักลูกค้า",
     greeting: "สวัสดีตอนบ่าย 👋",
     greetingDesc: "ภาพรวมการจองและคิววันนี้ — ดูสรุป AI ด้านล่างเพื่อวางแผนการตลาด",
     operationsTitle: "ปฏิบัติการวันนี้",

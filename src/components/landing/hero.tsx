@@ -263,7 +263,7 @@ export function Hero() {
               className="mt-5 flex flex-wrap gap-2"
             >
               <ButtonLink
-                href="/signup"
+                href="/start"
                 size="sm"
                 className="h-9 rounded-full border-0 bg-gradient-brand px-4 text-xs text-primary-foreground hover:opacity-90"
               >

@@ -1,21 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MapPin, Store } from "lucide-react";
 import { useLocale, useT } from "@/components/providers/locale-provider";
 import { MERCHANT_METRICS } from "@/lib/merchant-analytics";
+import { getPrimaryOwnerRestaurant } from "@/lib/restaurant/storage";
+import {
+  getBusinessTypeLabel,
+  getRestaurantBusinessType,
+} from "@/lib/restaurant/utils";
 import { DEMO_BUSINESS } from "@/lib/mock-data";
-
-const industryLabels: Record<string, { th: string; en: string }> = {
-  restaurant: { th: "ร้านอาหาร", en: "Restaurant" },
-  clinic: { th: "คลินิก", en: "Clinic" },
-  salon: { th: "ร้านเสริมสวย", en: "Salon" },
-};
+import type { Restaurant } from "@/lib/restaurant/types";
 
 export function MerchantStoreBanner() {
   const t = useT();
   const { locale } = useLocale();
-  const industry =
-    industryLabels[DEMO_BUSINESS.industry]?.[locale] ?? DEMO_BUSINESS.industry;
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+
+  useEffect(() => {
+    setRestaurant(getPrimaryOwnerRestaurant() ?? null);
+  }, []);
+
+  const name = restaurant ? restaurant.name : DEMO_BUSINESS.name;
+  const subtitle = restaurant
+    ? getBusinessTypeLabel(getRestaurantBusinessType(restaurant))
+    : locale === "th"
+      ? "ธุรกิจบริการ"
+      : "Service business";
+  const address = restaurant?.address || DEMO_BUSINESS.address;
 
   return (
     <div className="flex flex-wrap items-start justify-between gap-4 rounded-xl border border-border/60 bg-card/50 p-4 sm:p-5">
@@ -24,13 +36,11 @@ export function MerchantStoreBanner() {
           <Store className="h-5 w-5" />
         </span>
         <div>
-          <h1 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
-            {DEMO_BUSINESS.name}
-          </h1>
+          <h1 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">{name}</h1>
           <p className="mt-0.5 flex items-center gap-1 text-sm text-muted-foreground">
             <MapPin className="h-3.5 w-3.5 shrink-0" />
             <span>
-              {industry} · {DEMO_BUSINESS.address}
+              {subtitle} · {address || "— กรอกที่อยู่ในหน้าจัดการร้าน"}
             </span>
           </p>
           <p className="mt-2 text-sm text-muted-foreground">{t.merchant.greetingDesc}</p>

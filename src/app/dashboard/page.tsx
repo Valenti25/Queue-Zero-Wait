@@ -1,32 +1,38 @@
 "use client";
 
-import { MerchantAiDashboard } from "@/components/merchant/merchant-ai-dashboard";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { MerchantStoreBanner } from "@/components/merchant/merchant-store-banner";
 import { DashboardStats } from "@/components/merchant/dashboard-stats";
-import { QueuePanel } from "@/components/merchant/queue-panel";
-import { BookingsTable } from "@/components/merchant/bookings-table";
-import { GoogleConnect } from "@/components/merchant/google-connect";
+import { MerchantAiDashboard } from "@/components/merchant/merchant-ai-dashboard";
+import { RestaurantHub } from "@/components/owner/restaurant-hub";
 import { useT } from "@/components/providers/locale-provider";
 
-export default function DashboardPage() {
+function DashboardOverviewContent() {
   const t = useT();
+  const searchParams = useSearchParams();
+  const welcome = searchParams.get("welcome") === "1";
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <MerchantStoreBanner />
-      <MerchantAiDashboard />
-      <div className="space-y-8">
-        <div>
-          <h2 className="font-display text-lg font-semibold tracking-tight">
-            {t.merchant.operationsTitle}
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">{t.merchant.operationsDesc}</p>
-        </div>
-        <DashboardStats />
-        <QueuePanel />
-        <BookingsTable />
-        <GoogleConnect />
+      <RestaurantHub showWelcome={welcome} />
+      <DashboardStats />
+      <div>
+        <h2 className="font-display text-lg font-semibold tracking-tight">
+          {t.merchant.insightsNav}
+        </h2>
+        <p className="mt-1 mb-4 text-sm text-muted-foreground">สรุปยอดจองและคิวล่าสุด</p>
+        <MerchantAiDashboard />
       </div>
     </div>
+  );
+}
+
+export default function DashboardOverviewPage() {
+  return (
+    <Suspense fallback={<p className="text-muted-foreground">กำลังโหลด...</p>}>
+      <DashboardOverviewContent />
+    </Suspense>
   );
 }

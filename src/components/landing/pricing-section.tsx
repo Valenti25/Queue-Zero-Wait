@@ -18,7 +18,7 @@ const MERCHANT_HIGHLIGHT = 1;
 const CUSTOMER_HIGHLIGHT = 1;
 
 const CUSTOMER_HREFS = ["/book/harbor-bistro", "/queue/walk-in-demo", "/book/harbor-bistro"] as const;
-const MERCHANT_HREFS = ["/signup", "/signup", "#"] as const;
+const MERCHANT_HREFS = ["/start", "/start", "#"] as const;
 
 const PERIOD_CONFIG: Record<
   BillingPeriod,

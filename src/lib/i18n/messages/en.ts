@@ -596,6 +596,8 @@ export const en = {
     daysLeft: "12 days remaining",
     currentPlan: "Current plan",
     previewCustomer: "Preview customer view",
+    viewStorePage: "View store page",
+    customerHome: "Customer home",
     greeting: "Good afternoon 👋",
     greetingDesc: "Today's bookings and queue at a glance — use AI insights below for marketing.",
     operationsTitle: "Today's operations",
