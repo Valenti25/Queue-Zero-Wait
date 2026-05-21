@@ -88,10 +88,10 @@ export function QuickRestaurantSignup() {
         <header className="text-center">
           <p className={marketingEyebrowClass}>ทดลองใช้ฟรี 14 วัน</p>
           <h1 className={cn(marketingTitleClass, "mt-2 text-xl sm:text-2xl")}>
-            สมัครธุรกิจ — รับลิงก์จองทันที
+            ซื้อเวลา — รับลิงก์จองทันที
           </h1>
           <p className={cn(marketingBodyClass, "mx-auto mt-2 max-w-sm text-sm")}>
-            จอง คิว นัดหมาย — ร้านอาหาร คลินิก ธนาคาร ฟิตเนส และธุรกิจบริการอื่นๆ
+            ร้านอาหาร ร้านเสริมสวย และกิจการที่มีคิว — ลูกค้าจองได้เลย ไม่ต้องโหลดแอป
           </p>
         </header>
 

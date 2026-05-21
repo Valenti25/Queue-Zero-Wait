@@ -72,10 +72,9 @@ export function getOwnerSlugs(): string[] {
 
 export function addOwnerSlug(slug: string) {
   if (!browser()) return;
-  const slugs = getOwnerSlugs();
-  if (!slugs.includes(slug)) {
-    localStorage.setItem(STORAGE_KEYS.ownerSlugs, JSON.stringify([...slugs, slug]));
-  }
+  // ใส่ slug ใหม่ไว้หน้าสุด — ร้านล่าสุดที่ register จะเป็น primary เสมอ
+  const slugs = getOwnerSlugs().filter((s) => s !== slug);
+  localStorage.setItem(STORAGE_KEYS.ownerSlugs, JSON.stringify([slug, ...slugs]));
 }
 
 export function getOwnerRestaurants(): Restaurant[] {

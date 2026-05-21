@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BusinessHeader } from "@/components/customer/shared/business-header";
 import { BookingConfirmation } from "@/components/customer/shared/booking-confirmation";
 import { CustomerDetailsForm } from "@/components/customer/shared/customer-details-form";
+import { PricingModal } from "@/components/customer/shared/pricing-modal";
 import {
   SALON_SERVICES,
   SALON_STYLISTS,
@@ -17,6 +18,7 @@ import {
 import { bookingConfirmedHref, queueTrackingHref } from "@/lib/customer/navigation";
 import { cn } from "@/lib/utils";
 import { useT } from "@/components/providers/locale-provider";
+import type { PricingTier } from "@/types";
 
 export function SalonFlow({ business }: { business: CustomerBusiness }) {
   const t = useT();
@@ -24,8 +26,14 @@ export function SalonFlow({ business }: { business: CustomerBusiness }) {
   const [serviceId, setServiceId] = useState<string | null>(null);
   const [stylist, setStylist] = useState<string>(SALON_STYLISTS[0]);
   const [step, setStep] = useState<"select" | "details" | "confirmed">("select");
+  const [showPricing, setShowPricing] = useState(false);
 
   const service = SALON_SERVICES.find((s) => s.id === serviceId);
+
+  const handlePricingSelect = (_tier: PricingTier) => {
+    setShowPricing(false);
+    setStep("confirmed");
+  };
 
   if (step === "confirmed") {
     const href = mode === "waitlist" ? queueTrackingHref(business) : bookingConfirmedHref(business);
@@ -44,6 +52,8 @@ export function SalonFlow({ business }: { business: CustomerBusiness }) {
   }
 
   return (
+    <>
+    <PricingModal open={showPricing} onSelect={handlePricingSelect} />
     <div className="space-y-6">
       <BusinessHeader business={business} />
 
@@ -130,11 +140,12 @@ export function SalonFlow({ business }: { business: CustomerBusiness }) {
             <CustomerDetailsForm
               summary={[service?.label, stylist].filter(Boolean).join(" · ")}
               onBack={() => setStep("select")}
-              onSubmit={() => setStep("confirmed")}
+              onSubmit={() => setShowPricing(true)}
             />
           )}
         </TabsContent>
       </Tabs>
     </div>
+    </>
   );
 }

@@ -1,18 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, Copy, ExternalLink } from "lucide-react";
+import { Check, Copy, ExternalLink, Lock, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
+import { getRestaurantBySlug } from "@/lib/restaurant/storage";
 import { getRestaurantStorefrontUrl } from "@/lib/restaurant/utils";
 
 export function RestaurantLinks({ slug }: { slug: string }) {
   const [copied, setCopied] = useState<string | null>(null);
   const [localUrl, setLocalUrl] = useState(() => getRestaurantStorefrontUrl(slug, "local"));
+  const [isQueueAgent, setIsQueueAgent] = useState(false);
 
   useEffect(() => {
     setLocalUrl(getRestaurantStorefrontUrl(slug, "current"));
+    const r = getRestaurantBySlug(slug);
+    setIsQueueAgent(r?.businessType === "queue-agent");
   }, [slug]);
+
+  if (isQueueAgent) {
+    return (
+      <div className="mt-3 space-y-2 rounded-xl border border-brand-500/30 bg-brand-500/5 p-4">
+        <div className="flex items-center gap-2">
+          <Star className="h-4 w-4 fill-current text-brand-500" />
+          <p className="text-sm font-semibold text-brand-500">Exclusive on QueueZeroWait</p>
+        </div>
+        <div className="flex items-start gap-2">
+          <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            บริการนี้จองได้เฉพาะในแอปเท่านั้น — ไม่มีลิงก์ Google เพื่อรักษาความพิเศษและสร้างกระแสโซเชียล
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const links = [
     { key: "local", label: "Localhost", url: localUrl },

@@ -8,20 +8,36 @@ export const STORAGE_KEYS = {
   ownerProfile: "qzw_owner_profile",
 } as const;
 
-/** ประเภทกิจการ — สอดคล้องกับหน้าแลนดิ้ง (ไม่จำกัดร้านอาหาร) */
+/** ประเภทกิจการ — MVP */
 export const BUSINESS_TYPES: {
-  id: Industry | "other";
+  id: Industry | "other" | "queue-agent";
   label: string;
+  description?: string;
+  hasGoogleLink: boolean;
 }[] = [
-  { id: "restaurant", label: "ร้านอาหาร" },
-  { id: "clinic", label: "คลินิกและโรงพยาบาล" },
-  { id: "salon", label: "ร้านเสริมสวยและบาร์เบอร์" },
-  { id: "bank", label: "ธนาคารและการเงิน" },
-  { id: "fitness", label: "คลาสฟิตเนสและสตูดิโอ" },
-  { id: "automotive", label: "ศูนย์บริการรถ" },
-  { id: "events", label: "อีเวนต์และงาน" },
-  { id: "government", label: "หน่วยงานราชการ" },
-  { id: "other", label: "ธุรกิจบริการอื่นๆ" },
+  {
+    id: "restaurant",
+    label: "ร้านอาหาร",
+    description: "มีลิ้งค์จองสำหรับแปะบน Google Business Profile",
+    hasGoogleLink: true,
+  },
+  {
+    id: "salon",
+    label: "ร้านเสริมสวยและบาร์เบอร์",
+    description: "มีลิ้งค์จองสำหรับแปะบน Google Business Profile",
+    hasGoogleLink: true,
+  },
+  {
+    id: "queue-agent",
+    label: "⭐ ตี๋น้อย",
+    description: "เฉพาะในแอปเท่านั้น ไม่มีลิ้งค์ Google",
+    hasGoogleLink: false,
+  },
+  {
+    id: "other",
+    label: "ธุรกิจบริการอื่นๆ (เร็วๆ นี้)",
+    hasGoogleLink: true,
+  },
 ];
 
 export const LOCAL_BASE = "http://localhost:3000";

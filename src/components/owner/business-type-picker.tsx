@@ -132,15 +132,22 @@ export function BusinessTypePicker({
                       aria-selected={active}
                       onClick={() => pick(b.id)}
                       className={cn(
-                        "flex w-full items-center justify-between gap-2 rounded-md px-2.5 py-2 text-left text-sm",
+                        "flex w-full items-start justify-between gap-2 rounded-md px-2.5 py-2 text-left text-sm",
                         active
                           ? "bg-brand-500/12 text-foreground"
                           : "hover:bg-muted/60"
                       )}
                     >
-                      <span className="truncate">{b.label}</span>
+                      <div className="min-w-0">
+                        <span className="block truncate font-medium">{b.label}</span>
+                        {"description" in b && b.description ? (
+                          <span className="block text-[11px] text-muted-foreground leading-snug mt-0.5">
+                            {b.description}
+                          </span>
+                        ) : null}
+                      </div>
                       {active ? (
-                        <Check className="size-3.5 shrink-0 text-brand-500" />
+                        <Check className="mt-0.5 size-3.5 shrink-0 text-brand-500" />
                       ) : null}
                     </button>
                   </li>

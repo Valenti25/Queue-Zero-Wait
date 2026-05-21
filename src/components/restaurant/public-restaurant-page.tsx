@@ -1,21 +1,36 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { CustomerMarketHeader } from "@/components/layout/customer-market-header";
 import { RestaurantCustomerStorefront } from "@/components/restaurant/restaurant-customer-storefront";
+import { QueueAgentFlow } from "@/components/customer/flows/queue-agent-flow";
 import { useRestaurants } from "@/hooks/use-restaurants";
 import {
   getBusinessTypeLabel,
   getRestaurantBusinessType,
 } from "@/lib/restaurant/utils";
+import { getCustomerBusiness } from "@/lib/customer/businesses";
+import type { CustomerBusiness } from "@/lib/customer/businesses";
 import type { Restaurant } from "@/lib/restaurant/types";
 
 export function PublicRestaurantPage({ slug }: { slug: string }) {
+  const router = useRouter();
   const { restaurants, loaded } = useRestaurants();
   const r = restaurants.find((x) => x.slug === slug);
 
-  if (!loaded) {
+  /* ถ้าไม่เจอใน localStorage ให้เช็ค DEMO_BUSINESSES — ถ้าเป็น queue-agent ให้ redirect ไปหน้าจอง */
+  const demoBusiness = !r && loaded ? getCustomerBusiness(slug) : null;
+
+  useEffect(() => {
+    if (demoBusiness?.flowKind === "queue-agent") {
+      router.replace(`/book/${slug}`);
+    }
+  }, [demoBusiness, router, slug]);
+
+  if (!loaded || demoBusiness?.flowKind === "queue-agent") {
     return (
       <div className="min-h-screen bg-muted/30">
         <CustomerMarketHeader />
@@ -35,7 +50,27 @@ export function PublicRestaurantPage({ slug }: { slug: string }) {
     );
   }
 
-  const typeLabel = getBusinessTypeLabel(getRestaurantBusinessType(r));
+  /* ร้านที่ register เป็น queue-agent — แสดง QueueAgentFlow โดยตรง */
+  const businessType = getRestaurantBusinessType(r);
+  if (businessType === "queue-agent") {
+    const asBusiness: CustomerBusiness = {
+      id: r.id,
+      slug: r.slug,
+      name: r.name,
+      industry: "restaurant",
+      flowKind: "queue-agent",
+      icon: "⭐",
+      contextLabel: "Exclusive · จองได้ที่นี่ที่เดียว",
+      address: r.address,
+      description: r.description,
+      bookingMode: "waitlist",
+      avgWaitMinutes: 45,
+      googleBusinessConnected: false,
+    };
+    return <QueueAgentFlow business={asBusiness} />;
+  }
+
+  const typeLabel = getBusinessTypeLabel(businessType);
   const others = restaurants.filter((x) => x.slug !== slug).slice(0, 4);
 
   return (

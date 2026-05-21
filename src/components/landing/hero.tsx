@@ -7,18 +7,15 @@ import {
   ArrowRight,
   Building2,
   Calendar,
-  Car,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Clock,
-  Dumbbell,
-  Landmark,
   Pause,
   Play,
   Scissors,
   Sparkles,
-  Stethoscope,
+  Star,
   UtensilsCrossed,
   Users,
   Zap,
@@ -37,19 +34,15 @@ const ease = [0.22, 1, 0.36, 1] as const;
 type DemoMode = "booking" | "waitlist" | "actions";
 
 const industryIcons: LucideIcon[] = [
-  Stethoscope,
-  Scissors,
-  Landmark,
-  Dumbbell,
   UtensilsCrossed,
+  Scissors,
+  Star,
 ];
 
 const demoQueueByIndustry = [
-  { position: 12, ahead: 3, wait: 12 },
-  { position: 8, ahead: 2, wait: 18 },
-  { position: 5, ahead: 1, wait: 25 },
-  { position: 15, ahead: 4, wait: 35 },
-  { position: 6, ahead: 2, wait: 40 },
+  { position: 6, ahead: 2, wait: 18 },
+  { position: 3, ahead: 1, wait: 15 },
+  { position: 38, ahead: 12, wait: 45 },
 ];
 
 const featureIcons = [Zap, Clock, CheckCircle2] as const;
@@ -271,7 +264,7 @@ export function Hero() {
                 <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
               </ButtonLink>
               <ButtonLink
-                href="/book/harbor-bistro"
+                href="/book/tee-noi"
                 size="sm"
                 variant="outline"
                 className="h-9 rounded-full px-4 text-xs"
@@ -350,7 +343,7 @@ export function Hero() {
                   <span>{t.hero.demoPaused}</span>
                 )}
                 <Link
-                  href="/book/harbor-bistro"
+                  href="/book/tee-noi"
                   className="font-medium text-accent-cyan hover:underline"
                 >
                   {t.hero.tryYourself}
