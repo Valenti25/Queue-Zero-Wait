@@ -8,13 +8,13 @@ export function useRestaurants() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [loaded, setLoaded] = useState(false);
 
-  const refresh = useCallback(() => {
-    setRestaurants(getRestaurants());
+  const refresh = useCallback(async () => {
+    setRestaurants(await getRestaurants());
     setLoaded(true);
   }, []);
 
   useEffect(() => {
-    refresh();
+    void refresh();
   }, [refresh]);
 
   return { restaurants, loaded, refresh };

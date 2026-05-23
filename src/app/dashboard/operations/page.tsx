@@ -3,10 +3,12 @@
 import { QueuePanel } from "@/components/merchant/queue-panel";
 import { BookingsTable } from "@/components/merchant/bookings-table";
 import { useT } from "@/components/providers/locale-provider";
+import { usePrimaryOwnerRestaurant } from "@/hooks/use-primary-owner-restaurant";
 
 /** คิว + การจอง อยู่หน้าเดียวกัน */
 export default function DashboardOperationsPage() {
   const t = useT();
+  const { restaurant } = usePrimaryOwnerRestaurant();
 
   return (
     <div className="space-y-10">
@@ -17,7 +19,7 @@ export default function DashboardOperationsPage() {
         <p className="mt-1 text-sm text-muted-foreground">{t.merchant.operationsDesc}</p>
       </div>
       <QueuePanel />
-      <BookingsTable />
+      {restaurant && <BookingsTable restaurantId={restaurant.id} />}
     </div>
   );
 }

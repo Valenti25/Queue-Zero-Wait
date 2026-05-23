@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import { CustomerBookingRouter } from "@/components/customer/customer-booking-router";
 import { BookNotFound } from "@/components/customer/book-not-found";
 import { OptionalActionsPanel } from "@/components/customer/shared/optional-actions-panel";
 import { CustomerHeader } from "@/components/layout/customer-header";
 import { getCustomerBusiness } from "@/lib/customer/businesses";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const business = getCustomerBusiness(slug);
+  return { title: business ? `จอง — ${business.name}` : "จองออนไลน์" };
+}
 
 export default async function BookPage({
   params,

@@ -14,7 +14,7 @@ import type { Restaurant } from "@/lib/restaurant/types";
 
 export function DashboardHome() {
   const [owned, setOwned] = useState<Restaurant[]>([]);
-  useEffect(() => setOwned(getOwnerRestaurants()), []);
+  useEffect(() => { void getOwnerRestaurants().then(setOwned); }, []);
 
   return (
     <div className="space-y-8">

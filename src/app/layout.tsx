@@ -25,11 +25,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Queue-Zero-Wait — Book smarter. Wait less.",
-    template: "%s | Queue-Zero-Wait",
+    default: "Queue Zero Wait — จองง่าย รอน้อย",
+    template: "%s | Queue Zero Wait",
   },
   description:
-    "แพลตฟอร์มจองและคิวผ่าน Google | Google-first booking and waitlist platform.",
+    "แพลตฟอร์มจองและคิวสำหรับร้านอาหาร ร้านเสริมสวย และกิจการที่มีคิว — ลูกค้าจองได้เลย ไม่ต้องโหลดแอป",
 };
 
 export default function RootLayout({

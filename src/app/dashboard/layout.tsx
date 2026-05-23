@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { MerchantSidebar } from "@/components/merchant/merchant-sidebar";
 import { DashboardHeader } from "@/components/merchant/dashboard-header";
+
+export const metadata: Metadata = { title: "แดชบอร์ด" };
 
 export default function DashboardLayout({
   children,

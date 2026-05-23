@@ -16,7 +16,7 @@ export function RestaurantOwnerPanel() {
   const [owned, setOwned] = useState<Restaurant[]>([]);
 
   useEffect(() => {
-    setOwned(getOwnerRestaurants());
+    void getOwnerRestaurants().then(setOwned);
   }, []);
 
   return (

@@ -27,7 +27,7 @@ export function RestaurantHub({ showWelcome, compact }: RestaurantHubProps) {
   const [multiBranch, setMultiBranch] = useState(false);
 
   useEffect(() => {
-    setOwned(getOwnerRestaurants());
+    void getOwnerRestaurants().then(setOwned);
     setMultiBranch(getOwnerProfile().hasMultipleBranches);
   }, []);
 

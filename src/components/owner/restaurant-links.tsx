@@ -14,8 +14,7 @@ export function RestaurantLinks({ slug }: { slug: string }) {
 
   useEffect(() => {
     setLocalUrl(getRestaurantStorefrontUrl(slug, "current"));
-    const r = getRestaurantBySlug(slug);
-    setIsQueueAgent(r?.businessType === "queue-agent");
+    void getRestaurantBySlug(slug).then((r) => setIsQueueAgent(r?.businessType === "queue-agent"));
   }, [slug]);
 
   if (isQueueAgent) {

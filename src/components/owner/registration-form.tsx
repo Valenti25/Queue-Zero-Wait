@@ -123,7 +123,7 @@ export function RegistrationForm({
     if (patch.faqs !== undefined) setFaqs(patch.faqs);
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const finalSlug = slug || buildRestaurantSlug(name, businessType);
     const typeLabel = getBusinessTypeLabel(businessType);
@@ -153,7 +153,7 @@ export function RegistrationForm({
       menuDisclaimer,
       faqs,
     };
-    upsertRestaurant(restaurant);
+    await upsertRestaurant(restaurant);
     addOwnerSlug(finalSlug);
     window.dispatchEvent(new Event("qzw-restaurants-updated"));
     if (mode === "create") router.push("/dashboard?welcome=1");

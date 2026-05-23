@@ -18,7 +18,7 @@ export function MerchantStoreBanner() {
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
 
   useEffect(() => {
-    setRestaurant(getPrimaryOwnerRestaurant() ?? null);
+    void getPrimaryOwnerRestaurant().then((r) => setRestaurant(r ?? null));
   }, []);
 
   const name = restaurant ? restaurant.name : DEMO_BUSINESS.name;

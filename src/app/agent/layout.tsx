@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export const metadata = {
-  title: "Agent Dashboard — Queue Zero Wait",
+  title: "Agent Dashboard",
 };
 
 export default function AgentLayout({ children }: { children: ReactNode }) {

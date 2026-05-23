@@ -8,16 +8,16 @@ export function usePrimaryOwnerRestaurant() {
   const [restaurant, setRestaurant] = useState<Restaurant | undefined>();
   const [loaded, setLoaded] = useState(false);
 
-  const refresh = useCallback(() => {
-    setRestaurant(getPrimaryOwnerRestaurant());
+  const refresh = useCallback(async () => {
+    setRestaurant(await getPrimaryOwnerRestaurant());
     setLoaded(true);
   }, []);
 
   useEffect(() => {
-    refresh();
-    const onStorage = () => refresh();
-    const onFocus = () => refresh();
-    const onUpdated = () => refresh();
+    void refresh();
+    const onStorage = () => void refresh();
+    const onFocus = () => void refresh();
+    const onUpdated = () => void refresh();
     window.addEventListener("storage", onStorage);
     window.addEventListener("focus", onFocus);
     window.addEventListener("qzw-restaurants-updated", onUpdated);

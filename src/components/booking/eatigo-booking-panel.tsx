@@ -22,6 +22,13 @@ function formatDisplayDate(iso: string) {
   }
 }
 
+export interface BookingSelection {
+  party: string;
+  date: string;
+  time: string | null;
+  discount: number | null;
+}
+
 export function EatigoBookingPanel({
   slots,
   title = "จองโต๊ะ",
@@ -31,6 +38,7 @@ export function EatigoBookingPanel({
   compact = false,
   hideTitle = false,
   appearance = "default",
+  onNext,
 }: {
   slots: PromotionSlot[];
   title?: string;
@@ -42,6 +50,8 @@ export function EatigoBookingPanel({
   hideTitle?: boolean;
   /** หน้าลูกค้า — ปุ่มเลือกแบบ Eatigo ไม่ใช่ฟอร์มแก้ไข */
   appearance?: "default" | "customer";
+  /** Callback when customer clicks Next — receives the current selection */
+  onNext?: (selection: BookingSelection) => void;
 }) {
   const [party, setParty] = useState("2");
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
@@ -139,6 +149,7 @@ export function EatigoBookingPanel({
             type="button"
             size="sm"
             className="shrink-0 rounded-full bg-primary px-5 text-primary-foreground hover:bg-primary/90"
+            onClick={() => onNext?.({ party, date, time, discount })}
           >
             Next
             <ChevronRight className="ml-0.5 h-4 w-4" />

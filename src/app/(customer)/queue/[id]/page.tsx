@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+
+export const metadata = { title: "ติดตามคิวของคุณ" };
 import { CustomerQueueRouter } from "@/components/customer/customer-queue-router";
 import { CustomerHeader } from "@/components/layout/customer-header";
 import { getCustomerBusiness } from "@/lib/customer/businesses";

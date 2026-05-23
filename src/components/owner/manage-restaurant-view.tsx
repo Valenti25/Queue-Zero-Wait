@@ -20,7 +20,7 @@ export function ManageRestaurantView({ slug }: { slug: string }) {
   const [r, setR] = useState<Restaurant | null>(null);
   const [storeUrl, setStoreUrl] = useState(() => getRestaurantStorefrontUrl(slug, "local"));
 
-  useEffect(() => setR(getRestaurantBySlug(slug) ?? null), [slug]);
+  useEffect(() => { void getRestaurantBySlug(slug).then((r) => setR(r ?? null)); }, [slug]);
   useEffect(() => {
     setStoreUrl(getRestaurantStorefrontUrl(slug, "current"));
   }, [slug]);

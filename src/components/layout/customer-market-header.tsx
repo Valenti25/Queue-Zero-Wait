@@ -19,7 +19,7 @@ export function CustomerMarketHeader() {
           <ButtonLink variant="ghost" size="sm" href="/login" className="hidden md:inline-flex">
             เข้าสู่ระบบ
           </ButtonLink>
-          <ButtonLink size="sm" href="/start">
+          <ButtonLink size="sm" href="/login">
             สมัครร้าน
           </ButtonLink>
         </nav>

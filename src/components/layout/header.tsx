@@ -46,7 +46,7 @@ export function Header() {
           <LanguageToggle />
           <ThemeToggle />
           <ButtonLink
-            href="/start"
+            href="/login"
             size="sm"
             className="border-0 bg-gradient-brand text-primary-foreground shadow-lg shadow-brand-500/25 hover:opacity-90"
           >
@@ -87,7 +87,7 @@ export function Header() {
           ))}
           <div className="mt-3 border-t border-border pt-4">
             <ButtonLink
-              href="/start"
+              href="/login"
               className="w-full border-0 bg-gradient-brand text-primary-foreground"
             >
               {t.common.startTrial}

@@ -44,9 +44,12 @@ export function QuickRestaurantSignup() {
     [name, businessType]
   );
 
-  const submit = (e: React.FormEvent) => {
+  const [saveError, setSaveError] = useState("");
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
+    setSaveError("");
 
     const finalSlug = slug || buildRestaurantSlug(name, businessType);
     const typeLabel = getBusinessTypeLabel(businessType);
@@ -74,11 +77,15 @@ export function QuickRestaurantSignup() {
       priceRange: 3,
     };
 
-    upsertRestaurant(restaurant);
+    try {
+      await upsertRestaurant(restaurant);
+    } catch (err) {
+      setSaveError(err instanceof Error ? err.message : "บันทึกไม่สำเร็จ");
+      return;
+    }
     addOwnerSlug(finalSlug);
     window.dispatchEvent(new Event("qzw-restaurants-updated"));
     setAuthRole("owner");
-    setBookingMode(bookingMode);
     router.push("/dashboard?welcome=1");
   };
 
@@ -187,6 +194,11 @@ export function QuickRestaurantSignup() {
               )}
             </div>
 
+            {saveError && (
+              <p className="rounded-lg bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                {saveError}
+              </p>
+            )}
             <Button
               type="submit"
               size="lg"
